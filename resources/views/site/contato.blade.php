@@ -3,7 +3,6 @@
 @section('titulo','Contato')
 
 @section('contato')
-    @include('site.layouts._partials.topo')
 
     <div class="conteudo-pagina">
         <div class="titulo-pagina">
