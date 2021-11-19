@@ -12,7 +12,10 @@ class FornecedorSeeder extends Seeder
      */
     public function run()
     {
-        //inserindo um fornecedor usando uma instancia de objeto (se atentar para o fillable)
+
+        factory(Fornecedor::class, 97)->create();
+
+        /* //inserindo um fornecedor usando uma instancia de objeto (se atentar para o fillable)
         $fornecedor = new Fornecedor();
         $fornecedor->nome = 'Panificadora Pandora';
         $fornecedor->site = 'panpandora.com.br';
@@ -32,6 +35,6 @@ class FornecedorSeeder extends Seeder
             'site' => 'beduin.com.br',
             'uf' => 'IS',
             'email' => 'contato@beduin.com.br'
-        ]);
+        ]); */
     }
 }
