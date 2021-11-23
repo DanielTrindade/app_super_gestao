@@ -27,12 +27,12 @@ Route::post('/login','LoginController@autenticar')->name('site.login');
 
 //rotas agrupadas em app
 Route::middleware('autenticacao')->prefix('/app')->group(function() {
-    Route::get('/clientes',function() { return 'clientes'; })->name('app.clientes');
-    Route::get('/fornecedores','FornecedorController@index')->name('app.fornecedores');
-    Route::get('/produtos',function() { return 'produtos'; })->name('app.produtos');
+    Route::get('/home','HomeController@index')->name('app.home');
+    Route::get('/sair','LoginController@sair')->name('app.sair');
+    Route::get('/cliente','ClienteController@index')->name('app.clientes');
+    Route::get('/fornecedor','FornecedorController@index')->name('app.fornecedores');
+    Route::get('/produto','ProdutoController@index')->name('app.produtos');
 });
-
-
 
 //enviando parametros nas rotas
 /* Route::get('/contato/{nome}/{categoria_id}',
