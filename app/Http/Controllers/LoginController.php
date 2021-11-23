@@ -16,7 +16,7 @@ class LoginController extends Controller
             $erro = 'Necessário realizar login para acessar a página';
         }
         
-        return view('site.login',['titulo' => 'login', 'erro' => $erro]);
+        return view('site.login.index',['titulo' => 'login', 'erro' => $erro]);
     }
 
     public function autenticar(Request $request) {
