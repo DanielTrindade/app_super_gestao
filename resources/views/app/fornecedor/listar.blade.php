@@ -8,8 +8,7 @@
             <p>Fornecedor - Listar</p>
         </div>
         
-        @component('app.Components.menu')
-        @endcomponent
+        @include('app.layouts._partials.menu')
 
         <div class="informacao-pagina">
             <div style ="width:30%; margin-left:auto; margin-right:auto">
