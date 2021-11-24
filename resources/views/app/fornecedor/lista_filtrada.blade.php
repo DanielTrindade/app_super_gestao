@@ -5,7 +5,7 @@
 @section('conteudo')
     <div class="conteudo-pagina">
         <div class="titulo-pagina-2">
-            <p>Fornecedor - Listar</p>
+            <p>Fornecedor - Lista filtrada</p>
         </div>
         
         @include('app.layouts._partials.menu')
@@ -36,7 +36,8 @@
                         @endforeach
                     </tbody>
                 </table>
-                {{$fornecedores->appends($request)->links()}}
+                {{$fornecedores->append($request)->links()}}
+                
             </div>
         </div>
     </div>
