@@ -9,7 +9,7 @@
         </div>
         
         @include('app.layouts._partials.menu')
-
+        {{$mensagem ?? ''}}
         <div class="informacao-pagina">
             <div style ="width:80%; margin-left:auto; margin-right:auto">
                 <table border="1" width="100%">
@@ -30,8 +30,8 @@
                                 <td>{{ $fornecedor->site }}</td>
                                 <td>{{ $fornecedor->uf }}</td>
                                 <td>{{ $fornecedor->email }}</td>
-                                <td><a href="{{route('app.fornecedor.editar',$fornecedor->id)}}">Editar</a></td>
-                                <td><a href="">Excluir</a></td>
+                                <td><a href="{{route('app.fornecedor.editar', $fornecedor->id)}}">Editar</a></td>
+                                <td><a href=" {{route('app.fornecedor.excluir', $fornecedor->id)}} ">Excluir</a></td>
                             </tr>
                         @endforeach
                     </tbody>
