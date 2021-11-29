@@ -1,7 +1,7 @@
 @if (isset($produto->id))
     <form method="post" action="{{ route('produto.update',['produto' => $produto->id]) }}">
-        @csrf
-        @method('PUT')
+    @csrf
+    @method('PUT')
 @else
     <form method="post" action="{{ route('produto.store') }}">
         @csrf
