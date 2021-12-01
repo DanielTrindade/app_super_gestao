@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use \App\Unidade;
 use \App\ProdutoDetalhe;
+use \App\ItemDetalhe;
 class ProdutoDetalheController extends Controller
 {
     /**
@@ -59,19 +60,22 @@ class ProdutoDetalheController extends Controller
      */
     public function edit($id)
     {
-        //
+        $produtoDetalhe = ItemDetalhe::with(['Item'])->find($id);
+        $unidades = Unidade::all();
+        return view('app.produto_detalhe.edit', ['produto_detalhe' => $produtoDetalhe, 'unidades' => $unidades]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\ProdutoDetalhe $produtoDetalhe
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, ProdutoDetalhe $produtoDetalhe)
     {
-        //
+        $produtoDetalhe->update($request->all());
+        echo 'Atualizada com sucesso!'; 
     }
 
     /**
@@ -80,8 +84,9 @@ class ProdutoDetalheController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(ProdutoDetalhe $produtoDetalhe)
     {
-        //
+        $produtoDetalhe->delete();
+        return redirect()->route('produto-detalhe.index');
     }
 }

@@ -17,6 +17,7 @@
 
         <div class="informacao-pagina">
             <div style ="width:80%; margin-left:auto; margin-right:auto">
+                {{$produtos->toJson()}}
                 <table border="1" width="100%">
                     <thead>
                         <tr>
@@ -24,6 +25,9 @@
                             <th>Descrição</th>
                             <th>Preço</th>
                             <th>Unidade ID</th>
+                            <th>Comprimento</th>
+                            <th>Altura</th>
+                            <th>Largura</th>
                             <th></th> <!--coluna de visualização-->
                             <th></th> <!--excluir atualizar o registro-->
                             <th></th> <!--atualizar o registro-->
@@ -36,6 +40,9 @@
                                 <td>{{ $produto->descricao }}</td>
                                 <td>{{ $produto->preco }}</td>
                                 <td>{{ $produto->unidade_id }}</td>
+                                <td>{{ $produto->itemDetalhe->comprimento ?? ''}}</td>
+                                <td>{{ $produto->itemDetalhe->largura ?? ''}}</td>
+                                <td>{{ $produto->itemDetalhe->altura ?? ''}}</td>
                                 <td><a href="{{ route('produto.show', ['produto' => $produto->id])}}">Visualizar</a></td>
                                 <td><a href="{{route('produto.edit', ['produto' => $produto->id])}}">Editar</a></td>
                                 <td>
@@ -49,6 +56,7 @@
                         @endforeach
                     </tbody>
                 </table>
+                {{$produtos->toJson()}}
                 {{$produtos->appends($request)->links()}}
                 <br>
                 Exibindo {{ $produtos->count() }} produtos de {{ $produtos->total() }} (de {{ $produtos->firstItem() }} a {{ $produtos->lastItem() }})
