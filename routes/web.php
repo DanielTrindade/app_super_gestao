@@ -29,7 +29,6 @@ Route::post('/login','LoginController@autenticar')->name('site.login');
 Route::middleware('autenticacao')->prefix('/app')->group(function() {
     Route::get('/home','HomeController@index')->name('app.home');
     Route::get('/sair','LoginController@sair')->name('app.sair');
-    Route::get('/cliente','ClienteController@index')->name('app.cliente');
     Route::get('/fornecedor','FornecedorController@index')->name('app.fornecedor');
     Route::get('/fornecedor/listar','FornecedorController@listar')->name('app.fornecedor.listar');
     Route::post('/fornecedor/listar','FornecedorController@listar')->name('app.fornecedor.listar');
@@ -40,6 +39,13 @@ Route::middleware('autenticacao')->prefix('/app')->group(function() {
 
     Route::resource('produto','ProdutoController');
     Route::resource('produto-detalhe','ProdutoDetalheController');
+
+    Route::resource('cliente','ClienteController');
+    Route::resource('pedidos','PedidoController');
+    //Route::resource('pedido-produto','PedidoProdutoController');
+    Route::get('pedido-produto/create/{pedido}','PedidoProdutoController@create')->name('pedido-produto.create');
+    Route::post('pedido-produto/store/{pedido}','PedidoProdutoController@create')->name('pedido-produto.store');
+
 });
 
 //enviando parametros nas rotas

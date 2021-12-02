@@ -17,12 +17,12 @@
 
         <div class="informacao-pagina">
             <div style ="width:80%; margin-left:auto; margin-right:auto">
-                {{$produtos->toJson()}}
                 <table border="1" width="100%">
                     <thead>
                         <tr>
                             <th>Nome</th>
                             <th>Descrição</th>
+                            <th>Fornecedor</th>
                             <th>Preço</th>
                             <th>Unidade ID</th>
                             <th>Comprimento</th>
@@ -38,6 +38,7 @@
                             <tr>
                                 <td>{{ $produto->nome }}</td>
                                 <td>{{ $produto->descricao }}</td>
+                                <td>{{ $produto->fornecedor->nome ?? '' }}</td>
                                 <td>{{ $produto->preco }}</td>
                                 <td>{{ $produto->unidade_id }}</td>
                                 <td>{{ $produto->itemDetalhe->comprimento ?? ''}}</td>
@@ -56,7 +57,6 @@
                         @endforeach
                     </tbody>
                 </table>
-                {{$produtos->toJson()}}
                 {{$produtos->appends($request)->links()}}
                 <br>
                 Exibindo {{ $produtos->count() }} produtos de {{ $produtos->total() }} (de {{ $produtos->firstItem() }} a {{ $produtos->lastItem() }})

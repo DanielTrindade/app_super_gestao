@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Item extends Model
 {
     protected $table = 'produtos';
-    protected $fillable = ['nome', 'descricao','preco','unidade_id'];
+    protected $fillable = ['nome', 'descricao','preco','unidade_id','fornecedor_id'];
 
     public function itemDetalhe() {
 
@@ -15,5 +15,11 @@ class Item extends Model
         return $this->hasOne('\App\ItemDetalhe', 'produto_id', 'id');
 
         //produto tem 1 produtoDetalhe
+    }
+
+    public function fornecedor() {
+
+        return $this->belongsTo('\App\Fornecedor');
+
     }
 }

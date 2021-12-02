@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use \App\Pedido;
 use \App\Cliente;
 
-class ClienteController extends Controller
+class PedidoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +15,8 @@ class ClienteController extends Controller
      */
     public function index(Request $request)
     {
-        $clientes = Cliente::paginate(15);
-        return view('app.cliente.index',['clientes' => $clientes, 'request' => $request->all() ]);
+        $pedidos = Pedido::paginate(10);
+        return view('app.pedido.index',['pedidos' => $pedidos, 'request' => $request->all()]);
     }
 
     /**
@@ -23,10 +24,11 @@ class ClienteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         //
-        return view('app.cliente.create');
+        $clientes = Cliente::all();
+        return view('app.pedido.create',['clientes' => $clientes]);
     }
 
     /**
@@ -39,18 +41,15 @@ class ClienteController extends Controller
     {
         //
         $regras = [
-            'nome' => 'required|min:3|max:40'
+            'cliente_id' => 'exists:clientes,id'
         ];
-
         $feedback = [
-            'required' => 'Campo não preenchido',
-            'nome.max' => 'O campo nome não pode ter mais de 40 caracteres',
-            'nome.min' => 'O campo nome não pode ter menos de 3 caracteres'
+            'exists' => 'O cliente selecionado não existe'
         ];
+        $request->validate($regras, $feedback);
+        Pedido::create($request->all());
+        return redirect()->route('pedidos.index');
         
-        $request->validate($regras,$feedback);
-        Cliente::create($request->all());
-        return redirect()->route('cliente.index');
     }
 
     /**
@@ -67,36 +66,24 @@ class ClienteController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Cliente  $cliente
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Cliente $cliente)
+    public function edit($id)
     {
         //
-        return view('app.cliente.edit',['cliente' => $cliente]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Cliente  $cliente
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Cliente $cliente)
+    public function update(Request $request, $id)
     {
         //
-        $regras = [
-            'nome' => 'required|max:20'
-        ];
-
-        $feedback = [
-            'required' => 'Campo não preenchido',
-            'nome.max' => 'O campo nome não pode ter mais de 20 caracteres'
-        ];
-        $request->validate($regras,$feedback);
-        $cliente->update($request->all());
-        return redirect()->route('cliente.index'); 
     }
 
     /**
