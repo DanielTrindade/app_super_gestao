@@ -18,7 +18,6 @@
         <div class="informacao-pagina">
             <div style ="width:50%; margin-left:auto; margin-right:auto">
                 <table border="1" width="100%">
-
                     <thead>
                         <tr>
                             <th>Nome</th>
