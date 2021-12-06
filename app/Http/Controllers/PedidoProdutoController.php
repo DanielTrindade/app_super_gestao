@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Pedido;
 use App\Produto;
+use \App\PedidoProduto;
 
 class PedidoProdutoController extends Controller
 {
@@ -26,6 +27,7 @@ class PedidoProdutoController extends Controller
     public function create(Pedido $pedido)
     {
         $produtos = Produto::all();
+        $pedido->produtos; //eager loading
         return view('app.pedido_produto.create', ['pedido' => $pedido, 'produtos' => $produtos]);
     }
 
@@ -37,13 +39,29 @@ class PedidoProdutoController extends Controller
      */
     public function store(Request $request, Pedido $pedido)
     {
-        echo '<pre>';
-        print_r($pedido);
-        echo '</pre>';
-        echo '<hr>';
-        echo '<pre>';
-        print_r($request->all());
-        echo '</pre>';
+
+        $regras = [
+            'produto_id' => 'exists:produtos,id',
+            'quantidade' => 'required'
+        ];
+
+        $feedback = [
+            'produto_id.exists' => 'O produto selecionado não existe',
+            'required' => 'O campo :Attribute deve possuir um valor válido'
+        ];
+        /* $request->validate($regras,$feedback);
+        $pedidoProduto = new PedidoProduto();
+        $pedidoProduto->pedido_id = $pedido->id;
+        $pedidoProduto->produto_id = $request->get('produto_id');
+        $pedidoProduto->quantidade = $request->get('quantidade');
+        $pedidoProduto->save(); */
+
+        $pedido->produtos()->attach(
+            $request->get('produto_id'),
+            ['quantidade' => $request->get('quantidade')]
+        ); //usando o objeto
+        
+        return redirect()->route('pedido-produto.create',['pedido' => $pedido->id]);
     }
 
     /**
@@ -86,8 +104,19 @@ class PedidoProdutoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Pedido $pedido, Produto $produto)
     {
-        //
+
+        //metodo convencional
+
+        /* PedidoProduto::where([
+            'pedido_id' => $pedido->id,
+            'produto_id' =>$produto->id
+        ])->delete(); */
+
+        //outro modo de remover
+
+        $pedido->produtos()->detach($produto->id);
+        return redirect()->route('pedido-produto.create',['pedido' => $pedido->id]);
     }
 }

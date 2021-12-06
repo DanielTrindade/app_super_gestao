@@ -19,8 +19,7 @@ class ProdutoController extends Controller
     public function index(Request $request)
     {
         //eager loading usando o metodo with
-        $produtos = Item::with(['itemDetalhe','fornecedor'])->paginate(15);
-
+        $produtos = Item::with(['itemDetalhe','fornecedor','pedidos'])->paginate(15);
         return view('app.produto.index',['produtos' => $produtos , 'request' => $request->all()]);
     }
 

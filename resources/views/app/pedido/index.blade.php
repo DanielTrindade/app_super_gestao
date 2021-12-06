@@ -10,7 +10,7 @@
         
         <div class="menu">
             <ul>
-                <li><a href= " {{ route('pedidos.create')}} ">Novo</a></li>
+                <li><a href= " {{ route('pedidos.create')}} ">Novo Pedido</a></li>
                 <li><a href=" {{route('app.fornecedor')}} ">consulta</a></li>
             </ul>
         </div>
@@ -44,6 +44,7 @@
                                     </form> 
                                 </td>
                             </tr>
+
                         @endforeach
                     </tbody>
                 </table>
